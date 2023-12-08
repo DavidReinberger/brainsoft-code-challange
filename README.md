@@ -1,33 +1,39 @@
-# Coding Exercise Backend
+# "Domácí úkol" pro brainsoft s.r.o.
 
-This repository contains a coding exercise for new developers joining the backend development team.
+Bohužel jsem se úkolu dostal později než jsem chtěl, měl jsem několik dotazů, které by mi pomohly při vypracování a hlavně zkrátili čas.
 
-Fork this repository and create your own exercise!
+- Jak moc má být řešení robustní/rozšířitelné?
 
-## What we want you to build
+V případě, kdy by nebylo potřeba rozbíjet pokemona na entity, vybral bych mongodb + prisma, pročistil jednodušše data (např. commonCaptureArea), introspectnul a měl schema databáze.
 
-We have provided you with Pokemon data in a json file. Your mission is to create a database and expose the database to an API. Basically, you need to:
+- Může mít pokemon jiné než metrické jednotky?
+- Může pokemon mít víc "requirements" na evoluci?
+- Může mít `attack` u každého pokemona jiný damage?
 
-- Design the database to store information for the Pokemon data
-- Load the database with the data
-- Implement the API Interface with the following features:
-  - Query pokemons with the options:
-    - Pagination
-    - Search by name
-    - Filter by pokemon type
-    - Filter by favorite
-  - Query a pokemon by id
-  - Query a pokemon by name
-  - Query list of pokemon types
-  - Mutation to mark/unmark pokemon as favorite
-- Test are important and if time allows it, we'd like to see some test coverage
+Použitý stack je stejný jako v readme zadání.
 
-## Technology
+## První spuštění
 
-Remember that our technology stack is:
+1. `npm ci`
+2. `docker-compose up`
+3. `npm run knex:migrate:up`  
+4. `npm run knex:seed:run`
+5. `npm run ts-dev` 
 
-- Node.js (Typescript, Fastify)
-- GraphQL (Nexus)
-- PostgreSQL (Objection.js)
+GraphQl server běží na `localhost:4000/graphql`.
 
-You can use the framework that you prefer, but please write the challenge in JS or TS. You can choose PostgreSQL / MongoDB like database, be free but take in consideration the best database to store the data.
+## Poznámky:
+
+## Schema Databáze
+
+- některé pole pro pokemony a útoky jsou naimplemontovány jako ENUMy. Jsem zvyklý používat generátory ze schémat (ať už GraphQl code gen na FE nebo mít schéma databáze vygenerování na BE).
+
+## Modely
+
+- asi největší pain u modelů je funkce `processPGArrayToArray`, nanašel jsem způsob jak genericky procesovat array z databaze do js array
+
+### Testy
+
+Bohužel mi nezbyl čas na setup a napsání testů, nicméně kdybych byl setup hotový, otestoval bych následující:
+- Unit Test na helper `processPGArrayToArray`
+- Integration testy pro Query Resolvery a Favorite Mutace, že vrací data, které chceme

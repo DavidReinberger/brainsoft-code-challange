@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "lib": ["es2020"],
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "types": ["node"],
+    "paths": {
+      "~generated/*": ["./src/generated/*"],
+      "~domains/*": ["./src/domains/*"],
+      "~lib/*": ["./src/lib/*"],
+      "~helpers/*": ["./src/helpers/*"],
+      "~services/*": ["./src/services/*"],
+    }
+  },
+  "include": ["**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "NodeNext"
+    }
+  }
+}
